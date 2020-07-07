@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="styles/reset.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <title>Cookie Guesser</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="gutter-right logo">
+        <img src="assets/cookielogo.png" />
+      </div>
+    </header>
+    <main>
+      <section class="main-section">
+        <content>
+          <div class="grid-container">
+            <div class="grid-box box-1">
+              <h1 class="instructions">
+                Welcome to the Cookie Guesser!
+              </h1>
+            </div>
+            <div class="grid-box box-2">
+              <div class="instructions">
+                There are from 1 to 20 cookies behind the curtain, if you can
+                guess how many in four or less tries you win the cookies!
+              </div>
+              <div class="instructions">
+                I will give you a hint on your first three incorrect guesses.
+              </div>
+            </div>
+            <div class="grid-box box-3">
+              <div class="guess">
+                <input class="make-same" type="number" />
+                <span>Enter your Guess</span>
+              </div>
+              <div class="check">
+                <button class="make-same" id="guess-button">Check Guess</button>
+                <span>Click to check your Guess</span>
+              </div>
+            </div>
+            <div class="grid-box box-4">
+              <span id="hint-output"
+                >Let's see what kind of guessing skills you have</span
+              >
+              <span id="tries-remaining">You have 4 tries remaining...</span>
+            </div>
+            <div class="grid-box box-5"></div>
+          </div>
+        </content>
+      </section>
+    </main>
+    <footer>
+      <div class="copy gutter-right">&copy; 2020 Wilson Empire</div>
+    </footer>
+
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
