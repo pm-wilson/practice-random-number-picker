@@ -1,5 +1,6 @@
 // import functions and grab DOM elements
 import { isGuessCorrect, isGuessLow } from "./cookieUtils.js";
+import { addElement, removeElement, updateElementText } from "./cookieDOM.js";
 
 const userGuessElement = document.querySelector("#user-guess"),
   userButtonElement = document.querySelector("#guess-button"),
@@ -12,7 +13,6 @@ const userGuessElement = document.querySelector("#user-guess"),
 // initialize state
 let guessesRemaining = 4,
   computerNumber = Math.ceil(Math.random() * 20);
-console.log(computerNumber);
 
 // set event listeners to update state and DOM
 userButtonElement.addEventListener("click", () => {
@@ -35,7 +35,7 @@ userButtonElement.addEventListener("click", () => {
 
 resetButton.addEventListener("click", () => {
   //hide reset screen
-  resetButton.classList.add("hidden");
+  removeElement("reset-screen");
 
   resetGame();
 });
@@ -57,9 +57,9 @@ function userGuessWrong(userGuess) {
 
 function giveUserHint(lowGuess) {
   if (lowGuess) {
-    userHintElement.textContent = "Your guess was too low \n";
+    updateElementText(userHintElement, "Your guess was too low \n");
   } else {
-    userHintElement.textContent = "Your guess was too high \n";
+    updateElementText(userHintElement, "Your guess was too high \n");
   }
 }
 
@@ -69,10 +69,15 @@ function decrementTriesRemaining() {
 
   //update message
   if (guessesRemaining === 1) {
-    triesRemainingElement.textContent = "You have one last try for the cookies";
+    updateElementText(
+      triesRemainingElement,
+      "You have one last try for the cookies"
+    );
   } else {
-    triesRemainingElement.textContent =
-      "You have " + guessesRemaining + " tries left";
+    updateElementText(
+      triesRemainingElement,
+      "You have " + guessesRemaining + " tries left"
+    );
   }
 }
 
@@ -81,9 +86,11 @@ function userGuessCorrect(userGuess) {
   guessesRemaining = 0;
 
   //update message to user
-  userHintElement.textContent =
-    "Well done! Please enjoy these " + userGuess + " cookies!";
-  triesRemainingElement.textContent = "";
+  updateElementText(
+    userHintElement,
+    "Well done! Please enjoy these " + userGuess + " cookies!"
+  );
+  updateElementText(triesRemainingElement, "");
 
   //animate curtain
   animateCurtain(userGuess);
@@ -105,18 +112,6 @@ function checkForLoss() {
   }
 }
 
-function removeElement(elementId) {
-  const removeThis = document.getElementById(elementId);
-
-  removeThis.classList.add("hidden");
-}
-
-function addElement(elementId) {
-  const addThis = document.getElementById(elementId);
-
-  addThis.classList.remove("hidden");
-}
-
 function initializeGame() {
   setCookiePicture();
 
@@ -127,7 +122,6 @@ function initializeGame() {
 function resetGame() {
   //reset number
   computerNumber = Math.ceil(Math.random() * 20);
-  console.log(computerNumber);
 
   //reset guess count
   guessesRemaining = 4;
@@ -146,8 +140,8 @@ function resetGame() {
   curtainBox.classList.remove("animate-curtain");
 
   //update user messages
-  userHintElement.textContent = "Bing on your guessing skillz";
-  triesRemainingElement.textContent = "You have 4 tries remaining...";
+  updateElementText(userHintElement, "Bing on your guessing skillz");
+  updateElementText(triesRemainingElement, "You have 4 tries remaining...");
 }
 
 initializeGame();
