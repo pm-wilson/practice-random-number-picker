@@ -81,10 +81,44 @@ h1 {
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 5;
+  position: relative;
+  padding: 0 0;
+}
+
+#cookie-picture {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#curtain-picture {
+  position: absolute;
+  height: 100%;
+  width: 100%;
   background-image: url("../assets/Curtain.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+.animate-curtain {
+  animation: curtain-rises 3s 1;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes curtain-rises {
+  0% {
+    transform: scale(1, 1);
+    transform-origin: center top;
+  }
+  100% {
+    transform: scale(1, 0.25);
+    transform-origin: center top;
+  }
 }
 
 .make-same {
@@ -102,4 +136,8 @@ footer {
   background-color: var(--color3);
   box-shadow: var(--shadow);
   border: solid var(--color1) 2px;
+}
+
+.hidden {
+  display: none;
 }

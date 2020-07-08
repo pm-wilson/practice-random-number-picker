@@ -5,7 +5,8 @@ const userGuessElement = document.querySelector("#user-guess"),
   userButtonElement = document.querySelector("#guess-button"),
   userHintElement = document.querySelector("#hint-output"),
   triesRemainingElement = document.querySelector("#tries-remaining"),
-  curtainBox = document.querySelector("#curtain");
+  cookiePicture = document.querySelector("#cookie-picture"),
+  curtainBox = document.querySelector("#curtain-picture");
 
 // initialize state
 let guessesRemaining = 4;
@@ -57,6 +58,9 @@ function decrementTriesRemaining() {
     triesRemainingElement.textContent =
       "You have " + guessesRemaining + " tries left";
   }
+
+  //clear input
+  userGuessElement.value = "";
 }
 
 function userGuessCorrect(userGuess) {
@@ -68,12 +72,17 @@ function userGuessCorrect(userGuess) {
     "Well done! Please enjoy these " + userGuess + " cookies!";
   triesRemainingElement.textContent = "";
 
-  //update background
-  changeBackgroundTo(userGuess);
+  //animate curtain
+  animateCurtain(userGuess);
 }
 
-function changeBackgroundTo(userGuess) {
-  const pictureToUse = userGuess + "Cookies.jpg";
-
-  curtainBox.style.backgroundImage = "'url(./assets/ " + pictureToUse + ")'";
+function animateCurtain(userGuess) {
+  curtainBox.classList.add("animate-curtain");
 }
+
+function setCookiePicture() {
+  cookiePicture.style.backgroundImage =
+    "url('./assets/" + computerNumber + "Cookies.jpg')";
+}
+
+setCookiePicture();
