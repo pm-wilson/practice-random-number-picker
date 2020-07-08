@@ -10,9 +10,17 @@
   </head>
 
   <body>
+    <div id="reset-screen">
+      <div id="reset-message-box">
+        Too bad for you, feel free to click for another try .
+      </div>
+    </div>
     <header>
-      <div class="gutter-right logo">
-        <img src="assets/cookielogo.png" />
+      <div class="cookie-jar">
+        <img id="cookie1" src="assets/cookielogo.png" />
+        <img id="cookie2" src="assets/cookielogo.png" />
+        <img id="cookie3" src="assets/cookielogo.png" />
+        <img id="cookie4" src="assets/cookielogo.png" />
       </div>
     </header>
     <main>
@@ -21,7 +29,7 @@
           <div class="grid-container">
             <div class="grid-box box-1">
               <h1 class="instructions">
-                Welcome to the Cookie Guesser!
+                Welcome to the Cookie Guessing Game!
               </h1>
             </div>
             <div class="grid-box box-2">
@@ -52,13 +60,11 @@
               </div>
             </div>
             <div class="grid-box box-4">
-              <span id="hint-output"
-                >Let's see what kind of guessing skills you have</span
-              ><br />
+              <span id="hint-output">Bing on your guessing skillz</span><br />
               <span id="tries-remaining">You have 4 tries remaining...</span>
             </div>
             <div class="grid-box box-5">
-              <div id="cookie-picture"></div>
+              <div id="cookie-picture">Click to Play Again</div>
               <div id="curtain-picture"></div>
             </div>
           </div>

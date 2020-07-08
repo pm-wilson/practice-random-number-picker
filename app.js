@@ -6,11 +6,12 @@ const userGuessElement = document.querySelector("#user-guess"),
   userHintElement = document.querySelector("#hint-output"),
   triesRemainingElement = document.querySelector("#tries-remaining"),
   cookiePicture = document.querySelector("#cookie-picture"),
-  curtainBox = document.querySelector("#curtain-picture");
+  curtainBox = document.querySelector("#curtain-picture"),
+  resetButton = document.querySelector("#reset-screen");
 
 // initialize state
-let guessesRemaining = 4;
-const computerNumber = Math.ceil(Math.random() * 20);
+let guessesRemaining = 4,
+  computerNumber = Math.ceil(Math.random() * 20);
 console.log(computerNumber);
 
 // set event listeners to update state and DOM
@@ -25,8 +26,22 @@ userButtonElement.addEventListener("click", () => {
     } else {
       //when user guesses wrong
       userGuessWrong(userGuess);
+      checkForLoss();
     }
+    //clear input
+    userGuessElement.value = "";
   }
+});
+
+resetButton.addEventListener("click", () => {
+  //hide reset screen
+  resetButton.classList.add("hidden");
+
+  resetGame();
+});
+
+cookiePicture.addEventListener("click", () => {
+  resetGame();
 });
 
 function userGuessWrong(userGuess) {
@@ -36,14 +51,15 @@ function userGuessWrong(userGuess) {
   giveUserHint(lowGuess);
 
   //update tries remaining
+  removeElement("cookie" + guessesRemaining);
   decrementTriesRemaining();
 }
 
 function giveUserHint(lowGuess) {
   if (lowGuess) {
-    userHintElement.textContent = "Your guess is too low \n";
+    userHintElement.textContent = "Your guess was too low \n";
   } else {
-    userHintElement.textContent = "Your guess is too high \n";
+    userHintElement.textContent = "Your guess was too high \n";
   }
 }
 
@@ -58,9 +74,6 @@ function decrementTriesRemaining() {
     triesRemainingElement.textContent =
       "You have " + guessesRemaining + " tries left";
   }
-
-  //clear input
-  userGuessElement.value = "";
 }
 
 function userGuessCorrect(userGuess) {
@@ -76,7 +89,7 @@ function userGuessCorrect(userGuess) {
   animateCurtain(userGuess);
 }
 
-function animateCurtain(userGuess) {
+function animateCurtain() {
   curtainBox.classList.add("animate-curtain");
 }
 
@@ -85,4 +98,56 @@ function setCookiePicture() {
     "url('./assets/" + computerNumber + "Cookies.jpg')";
 }
 
-setCookiePicture();
+function checkForLoss() {
+  if (guessesRemaining === 0) {
+    //remove hidden class
+    resetButton.classList.remove("hidden");
+  }
+}
+
+function removeElement(elementId) {
+  const removeThis = document.getElementById(elementId);
+
+  removeThis.classList.add("hidden");
+}
+
+function addElement(elementId) {
+  const addThis = document.getElementById(elementId);
+
+  addThis.classList.remove("hidden");
+}
+
+function initializeGame() {
+  setCookiePicture();
+
+  //hide reset screen
+  resetButton.classList.add("hidden");
+}
+
+function resetGame() {
+  //reset number
+  computerNumber = Math.ceil(Math.random() * 20);
+  console.log(computerNumber);
+
+  //reset guess count
+  guessesRemaining = 4;
+
+  //remove remaining cookies
+  for (var i = 1; i <= 4; i++) {
+    removeElement("cookie" + i);
+  }
+
+  //add cookies
+  for (var i = 1; i <= 4; i++) {
+    addElement("cookie" + i);
+  }
+
+  //hide curtain
+  curtainBox.classList.remove("animate-curtain");
+
+  //update user messages
+  userHintElement.textContent = "Bing on your guessing skillz";
+  triesRemainingElement.textContent = "You have 4 tries remaining...";
+}
+
+initializeGame();
